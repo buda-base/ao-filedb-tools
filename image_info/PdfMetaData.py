@@ -16,7 +16,7 @@ from typing import Union, Any, IO
 # https://pypdf.readthedocs.io/en/latest/modules/PdfReader.html
 
 
-from pypdf import PdfReader, DocumentInformation
+from pypdf import PdfReader
 
 PdfReaderType = Union[str, Path, IO[Any]]
 
