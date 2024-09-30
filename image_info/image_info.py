@@ -3,9 +3,8 @@
 from PIL import Image, ExifTags, UnidentifiedImageError
 import os
 from datetime import datetime
-from pprint import pp
 
-from .pdf_info import *
+from image_info.PdfMetaData import PdfMetaData
 
 
 def extract_image_metadata(file_path):
@@ -47,8 +46,16 @@ def extract_image_metadata(file_path):
     return metadata
 
 
-def extract_pdf_metadata(file_path):
+def extract_pdf_metadata(file_path) -> {}:
     import pypdf
-    reader = pypdf.PdfFileReader(file_path)
+    pdf_info = PdfMetaData(stream=file_path)
+    metadata = {
+        'num_pages': pdf_info.num_pages,
+        'creation_date': pdf_info.creation_date,
+        'modification_date': pdf_info.modification_date,
+        'median_nb_chr_per_page': pdf_info.median_nb_chr_per_page,
+        'median_nb_images_per_page': pdf_info.median_nb_images_per_page
+    }
+    return metadata
 
 # Example usage
