@@ -33,7 +33,7 @@ Collect these features
 ```
 | Attribute        | Description                                | data source | method         | data attribute  |
 |------------------|--------------------------------------------|-------------|----------------|-----------------|
-|number_of_pages | the number of pages                        |PyPDF2.PdfFileReader|                | .numPages       |
-|median_nb_chr_per_page | the average number of characters in a page |PyPDF2.PdfFileReader|                | .numPages       |
-|median_nb_images_per_page | the average number of images per page      |PyPDF2.PdfFileReader|                | .numPages       |
-|recorded_date | the timestamp recorded in the meetadata    | PyPDF2.PdfFileReader| .document_info | ["/CreationDate"] |
+|number_of_pages | the number of pages                        |pypdf.PdfFileReader|                | .numPages       |
+|median_nb_chr_per_page | the average number of characters in a page |pypdf.PdfFileReader|                | .numPages       |
+|median_nb_images_per_page | the average number of images per page      |pypdf.PdfFileReader|                | .numPages       |
+|recorded_date | the timestamp recorded in the meetadata    | pypdf.PdfFileReader| .document_info | ["/CreationDate"] |
