@@ -9,11 +9,17 @@ import os
 from datetime import datetime
 from pathlib import Path
 from typing import Union, Any, IO
+from pprint import pp
 
-from PIL import Image, ExifTags
+from PIL import Image, ExifTags, UnidentifiedImageError
+
+# per https://www.loc.gov/preservation/digital/formats/content/tiff_tags.shtml
+TIFF_V2_DATE_CREATED_TAG: int = 306
 
 ImageReaderType = Union[str, Path, IO[Any]]
 
+class ImageMetadataException(Exception):
+    pass
 
 class ImageMetaData():
     def __init__(self, stream: ImageReaderType = None):
@@ -38,9 +44,11 @@ class ImageMetaData():
         if not self._image_object and not self._image_path:
             raise ValueError('_image_path required to open Image object. set self._image_path')
         if not self._image_object:
-
-            # TODO: Build a facade that presents the same objects from PIL and rawpy
-            self._image_object: Image = Image.open(self._image_path)
+            try:
+                self._image_object: Image = Image.open(self._image_path)
+            except UnidentifiedImageError:
+                err_obj = self._image_path or "stream"
+                raise ImageMetadataException(f"{err_obj} is not a supported format.")
         return self._image_object
 
     @property
@@ -77,14 +85,19 @@ class ImageMetaData():
 
     @property
     def recorded_date(self) -> datetime:
-        exif_data = self.image_object._getexif()
-        if exif_data:
-            for tag, value in exif_data.items():
-                tag_name = ExifTags.TAGS.get(tag, tag)
-                if tag_name == 'DateTimeOriginal':
-                    # ?
-                    return datetime(value)
-        return None
+        if self.image_type == 'TIFF':
+            image = self.image_object
+            _ =  self.image_object.tag_v2.get(TIFF_V2_DATE_CREATED_TAG,42)
+            pp()
+            return None
+        else:
+            exif_data = self.image_object._getexif()
+            if exif_data:
+                for tag, value in exif_data.items():
+                    tag_name = ExifTags.TAGS.get(tag, tag)
+                    if tag_name == 'DateTimeOriginal':
+                        # ?
+                        return datetime(value)
 
     @property
     def modified_date(self) -> datetime:

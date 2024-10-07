@@ -13,69 +13,65 @@ import statistics
 from pathlib import Path
 from typing import Union, Any, IO
 
-# https://pypdf.readthedocs.io/en/latest/modules/PdfReader.html
-
-
 from pypdf import PdfReader
+
+from image_info.BaseImage import BaseImage
+
+# https://pypdf.readthedocs.io/en/latest/modules/PdfReader.html
 
 PdfReaderType = Union[str, Path, IO[Any]]
 
 
-class PdfMetaData():
-    """
-    initializer. Usage  PdfMetadata(file name string, pathlib.Path object, or file-like object (open _pdf_path)
+class PdfImage(BaseImage):
     """
 
-    def __init__(self, stream: PdfReaderType = None):
-        self._pdf_path = stream
-        self._pdf_object = None
+    """
+
+    def __init__(self, reader: PdfReader, file_path: Path):
+        """
+        Class to analyze a pdf file.
+        :param reader: Open pypdf.PdfReader
+        :param file_path: Path to the object that's opened
+        """
+        super().__init__(reader, file_path)
+        self._type_hint_reader: PdfReader = self._reader
         self._median_nb_chr_per_page = None
         self._median_nb_images_per_page = None
 
     @property
-    def pdf_object(self) -> PdfReader:
-        if not self._pdf_object and not self._pdf_path:
-            raise ValueError('_pdf_path required to open pdf object. set self._pdf_path')
-        if not self._pdf_object:
-            self._pdf_object = PdfReader(self._pdf_path)
-        return self._pdf_object
-
-    @property
     def num_pages(self):
-            return self.pdf_object.get_num_pages()
+        return self._type_hint_reader.get_num_pages()
 
     @property
     def creation_date(self):
-        return self.pdf_object.metadata.creation_date
+        return self._type_hint_reader.metadata.creation_date
 
     @property
     def modification_date(self):
-        return self.pdf_object.metadata.modification_date
-    
+        return self._type_hint_reader.metadata.modification_date
+
     @property
     def median_nb_chr_per_page(self):
         self.refresh_medians()
         return self._median_nb_chr_per_page
-
 
     @property
     def median_nb_images_per_page(self):
         self.refresh_medians()
         return self._median_nb_images_per_page
 
-
     def calc_median_nb_chars_per_page(self):
         """
         Calculate the median number of characters per page in the pdf
         """
-        char_counts = [len(page.extract_text()) for page in self.pdf_object.pages]
+        char_counts = [len(page.extract_text()) for page in self._type_hint_reader.pages]
         return statistics.median(char_counts)
 
     def calc_median_nb_images_per_page(self):
         """
         Calculate the median number of images per page in the pdf
         """
-        image_counts = [len(page.images) for page in self.pdf_object.pages]
+        image_counts = [len(page.images) for page in self._type_hint_reader.pages]
         return statistics.median(image_counts)
 
     def refresh_medians(self):
