@@ -54,7 +54,7 @@ class BaseImage:
     @property
     def modified_date(self) -> datetime:
         import os
-        _md = datetime.fromtimestamp(os.path.getmtime(self._image_path))
+        _md = datetime.fromtimestamp(os.path.getmtime(self.image_path))
         return datetime(_md.year, _md.month, _md.day)
 
 

@@ -41,7 +41,7 @@ class PilImage(BaseImage):
         return self._type_hint_reader.info.get('dpi', 0)
 
     def _get_recorded_date(self) -> datetime:
-        exif_data = self._type_hint_reader._getexif()
+        exif_data = self._type_hint_reader.getexif()
         if exif_data:
             for tag, value in exif_data.items():
                 tag_name = ExifTags.TAGS.get(tag, tag)

@@ -9,6 +9,7 @@ from pathlib import Path
 from os import PathLike
 
 from rawpy._rawpy import LibRawFileUnsupportedError
+from pypdf import PdfReader
 
 from image_info.BaseImage import BaseImage
 from image_info.PilImage import PilImage
@@ -27,8 +28,13 @@ def image_info_factory(file_path: PathLike[str]) -> BaseImage:
     try:
         return PilImage(Image.open(file_path), Path(file_path))
     except UnidentifiedImageError:
-        return RawImage(rawpy.imread(file_path), Path(file_path))
+        pass
+    try:
+        return RawImage(rawpy.imread(str(file_path)), Path(file_path))
     except LibRawFileUnsupportedError:
-        return PdfImage(file_path, Path(file_path))
+        pass
+
+    try:
+        return PdfImage(PdfReader(file_path), Path(file_path))
     except Exception as e:
         raise ValueError(f"File {file_path} not supported - error {e}")

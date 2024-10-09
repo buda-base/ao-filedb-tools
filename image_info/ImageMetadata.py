@@ -88,7 +88,6 @@ class ImageMetaData():
         if self.image_type == 'TIFF':
             image = self.image_object
             _ =  self.image_object.tag_v2.get(TIFF_V2_DATE_CREATED_TAG,42)
-            pp()
             return None
         else:
             exif_data = self.image_object._getexif()

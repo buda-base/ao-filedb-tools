@@ -5,7 +5,8 @@ from pprint import pp
 
 import pytest
 
-from image_info.PdfMetaData import PdfMetaData
+from image_info.ImageInfoFactory import image_info_factory
+from image_info.PdfImage import PdfImage
 
 test_source_dir: Path = Path(os.getcwd(), 'sources/')
 
@@ -32,7 +33,7 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
       'median_nb_chr_per_page': 1395, 'median_nb_images_per_page': 0})
 ])
 def test_pdf_metadata(source, expected):
-    metadata = PdfMetaData(source)
+    metadata: PdfImage = image_info_factory(source)
     # pp(f"{metadata.num_pages=}")
     # pp(f"{metadata.creation_date=}")
     # pp(f"{metadata.modification_date=}")

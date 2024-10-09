@@ -32,7 +32,7 @@ class RawImage(BaseImage):
         return 0  # Not really implemented for RAW
 
     def _get_resolution(self) -> ():
-        return self._type_hint_reader.sizes.x_resolution, self._type_hint_reader.sizes.y_resolution
+        return self._type_hint_reader.sizes.width, self._type_hint_reader.sizes.height
 
     def _get_recorded_date(self) -> datetime:
         # RAW images may not have EXIF data, so this is a placeholder

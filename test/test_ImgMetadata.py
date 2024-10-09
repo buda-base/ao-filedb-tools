@@ -6,6 +6,7 @@ import pytest
 # from image_info.ImageMetadata import ImageMetaData, ImageMetadataException
 from image_info.BaseImage import BaseImage
 from image_info.ImageInfoFactory import image_info_factory
+
 # from image_info.PdfImage import PdfImage
 # from image_info.PdfImage import PdfImage
 
@@ -57,35 +58,16 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
         "recorded_date": "",
         "modified_date": ""
     })
-  ])
-
-
+])
 def test_image_metadata(source, expected):
+#    try:
     metadata: BaseImage = image_info_factory(source)
-    # pp(f"{metadata.num_pages=}")
-    # pp(f"{metadata.creation_date=}")
-    # pp(f"{metadata.modification_date=}")
-    # pp(f"{metadata.median_nb_chr_per_page=}")
-    # pp(f"{metadata.median_nb_images_per_page=}")
-    # pp(f"{metadata.image_type == expected['image_type']
-    from pprint import pp
-    pp(f"type {metadata.image_type=}")
-    pp(f"{metadata.image_mode=}")
-    pp(f"{metadata.width=}")
-    pp(f"{metadata.height=}")
-    pp(f"{metadata.compression=}")
-    pp(f"{metadata.quality=}")
-    pp(f"{metadata.resolution=}")
-    pp(f"{metadata.recorded_date=}")
-    pp(f"{metadata.modified_date=}")
-    
-    # assert metadata.image_type == expected['image_type']
-    # assert metadata.image_mode == expected['image_mode']
-    # assert metadata.width == expected['width']
-    # assert metadata.height == expected['height']
-    # assert metadata.compression == expected['compression']
-    # assert metadata.quality == expected['quality']
-    # assert metadata.resolution == expected['resolution']
-    # assert metadata.recorded_date == expected['recorded_date']
-    # assert metadata.modified_date == expected['modified_date']
-
+    assert metadata.image_type == expected['image_type']
+    assert metadata.image_mode == expected['image_mode']
+    assert metadata.width == expected['width']
+    assert metadata.height == expected['height']
+    assert metadata.compression == expected['compression']
+    assert metadata.quality == expected['quality']
+    assert metadata.resolution == expected['resolution']
+    assert metadata.recorded_date == expected['recorded_date']
+    assert metadata.modified_date == expected['modified_date']
