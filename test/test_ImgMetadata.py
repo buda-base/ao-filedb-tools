@@ -8,58 +8,11 @@ import pytest
 from image_info.BaseImage import BaseImage
 from image_info.ImageInfoFactory import image_info_factory
 
+
 # from image_info.PdfImage import PdfImage
 # from image_info.PdfImage import PdfImage
 
 test_source_dir: Path = Path(os.getcwd(), 'sources/')
-
-
-# @pytest.mark.parametrize("source, expected", [
-#     (test_source_dir / 'I1FEMC010315_0011.tif', {
-#         "image_type": "",
-#         "image_mode": "",
-#         "width": "",
-#         "height": "",
-#         "compression": "",
-#         "quality": "",
-#         "resolution": "",
-#         "recorded_date": "",
-#         "modified_date": ""
-#     }),
-#     (test_source_dir / 'I2PD181500001.tif', {
-#         "image_type": "",
-#         "image_mode": "",
-#         "width": "",
-#         "height": "",
-#         "compression": "",
-#         "quality": "",
-#         "resolution": "",
-#         "recorded_date": "",
-#         "modified_date": ""
-#     }),
-#     (test_source_dir / 'I2PD181500004.jpg', {
-#         "image_type": "",
-#         "image_mode": "",
-#         "width": "",
-#         "height": "",
-#         "compression": "",
-#         "quality": "",
-#         "resolution": "",
-#         "recorded_date": "",
-#         "modified_date": ""
-#     }),
-#     (test_source_dir / 'I1EAP71250007.ARW', {
-#         "image_type": "",
-#         "image_mode": "",
-#         "width": "",
-#         "height": "",
-#         "compression": "",
-#         "quality": "",
-#         "resolution": "",
-#         "recorded_date": "",
-#         "modified_date": ""
-#     })
-# ])
 
 
 @pytest.mark.parametrize("source, expected", [
@@ -110,6 +63,7 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
 def test_image_metadata(source, expected):
     #    try:
     metadata: BaseImage = image_info_factory(source)
+
     assert metadata.image_type == expected['image_type']
     assert metadata.image_mode == expected['image_mode']
     assert metadata.width == expected['width']
@@ -132,3 +86,5 @@ def test_image_metadata(source, expected):
     # pp(f"{metadata.resolution=}")
     # pp(f"{metadata.recorded_date=}")
     # pp(f"{metadata.modified_date=}")
+
+#

@@ -1,6 +1,7 @@
 import os
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from pprint import pp
 
 import pytest
 
@@ -18,7 +19,7 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
     (test_source_dir / 'MultiPageImage1.pdf',
      {'num_pages': 13, 'creation_date': datetime(2021, 7, 4, 11, 14, 25, tzinfo=timezone.utc),
       'modification_date': datetime(2021, 8, 17, 10, 1, 43,
-                                             tzinfo=timezone(timedelta(days=-1, seconds=61200))),
+                                    tzinfo=timezone(timedelta(days=-1, seconds=61200))),
       'median_nb_chr_per_page': 0, 'median_nb_images_per_page': 1}),
     (test_source_dir / 'MultiPageCharMultiImage.pdf',
      {'num_pages': 16,
@@ -33,13 +34,3 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
 ])
 def test_pdf_metadata(source, expected):
     metadata: PdfImage = image_info_factory(source)
-    # pp(f"{metadata.num_pages=}")
-    # pp(f"{metadata.creation_date=}")
-    # pp(f"{metadata.modification_date=}")
-    # pp(f"{metadata.median_nb_chr_per_page=}")
-    # pp(f"{metadata.median_nb_images_per_page=}")
-    assert metadata.num_pages == expected['num_pages']
-    assert metadata.creation_date == expected['creation_date']
-    assert metadata.modification_date == expected['modification_date']
-    assert metadata.median_nb_chr_per_page == expected['median_nb_chr_per_page']
-    assert metadata.median_nb_images_per_page == expected['median_nb_images_per_page']

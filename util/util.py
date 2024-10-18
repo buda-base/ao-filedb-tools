@@ -35,11 +35,11 @@ class PDFEditor:
         # Make this constant
         self.writer.close()
 
+if __name__ == '__main__':
+    # Example usage
+    cd = os.getcwd()
+    # Download from /Archive2/69/W1ER169/sources/W1ER169-I1ER1069/
+    editor = PDFEditor(Path(Path.home(), 'Downloads', 'I1ER1069.pdf'))
 
-# Example usage
-cd = os.getcwd()
-# Download from /Archive2/69/W1ER169/sources/W1ER169-I1ER1069/
-editor = PDFEditor(Path(Path.home(), 'Downloads', 'I1ER1069.pdf'))
-
-editor.remove_after(3)  # Remove the second page
-editor.save('Typical_BdrcPdf.pdf')
+    editor.remove_after(3)  # Remove the second page
+    editor.save('Typical_BdrcPdf.pdf')
