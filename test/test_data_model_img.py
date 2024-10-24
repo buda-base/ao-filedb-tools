@@ -64,13 +64,8 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
 
 
 def test_data_model_image(source: Path, expected: ImageFileInfos):
-    from model.storage.Files import Files
-    from sqlalchemy.orm import relationship
-    # Files.image_file_infos = relationship('ImageFileInfos', back_populates='files')
-    # ImageFileInfos.files = relationship('Files', back_populates='image_file_infos')
-
-    blarg = base_image_to_image_file_infos(image_info_factory(source))
-    assert(expected == blarg)
+    actual = base_image_to_image_file_infos(image_info_factory(source))
+    assert(expected == actual)
 
 
 
