@@ -11,7 +11,8 @@ CREATE TABLE `content`.`image_file_infos` (
   `width` smallint UNSIGNED NOT NULL COMMENT 'width of the bitmap (not taking a potential exif rotation into account)',
   `height` smallint UNSIGNED NOT NULL COMMENT 'height of the bitmap (not taking a potential exif rotation into account)',
   `quality` tinyint UNSIGNED COMMENT 'relevant only for jpg, png and single_image_tiff encoded as jpg: quality of encoding. JPEG is represented between 0 and 100. For PNG this column encodes the compression between 0 and 9.',
-  `bps` tinyint UNSIGNED NOT NULL COMMENT 'bits per sample',
+  `bps_x` tinyint UNSIGNED NOT NULL COMMENT 'bits per sample x',
+  `bps_y` tinyint UNSIGNED NOT NULL COMMENT 'bits per sample y',
   `recorded_date` timestamp COMMENT 'the timestamp recorded in the exif metadata',
   create_time timestamp default CURRENT_TIMESTAMP null,
   update_time timestamp default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP

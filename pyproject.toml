@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "ao-filedb-tools"
+version = "0.1.0"
+description = "Tools to read image attributes and store to a database"
+authors = ["Jim Katz <jimk@tbrc.org>"]
+license = "License :: OSI Approved :: MIT License"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.9"
+sqlalchemy = "^2.0.0"
+pillow = "^10.0.0"
+pypdf="^5.0.0"
+rawpy= "^0.22.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
