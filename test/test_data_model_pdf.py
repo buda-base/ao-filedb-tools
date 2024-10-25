@@ -5,8 +5,7 @@ from pathlib import Path
 import pytest
 
 from ORMModel import PdfFileInfos
-from image_info.ImageInfoFactory import image_info_factory
-from image_info.PdfImage import PdfImage
+import image_info as ii
 
 test_source_dir: Path = Path(os.getcwd(), 'sources/')
 
@@ -33,15 +32,8 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
                   median_nb_chr_per_page=1395,
                   median_nb_images_per_page=0))
 ])
+
 def test_pdf_metadata(source, expected):
-    actual: PdfFileInfos = base_image_to_pdf_file_infos(image_info_factory(source))
+    actual: PdfFileInfos = ii.base_image_to_pdf_file_infos(ii.image_info_factory(source))
     assert actual == expected
 
-
-def base_image_to_pdf_file_infos(actual_pdf: PdfImage) -> PdfFileInfos:
-    return PdfFileInfos(
-        number_of_pages=actual_pdf.num_pages,
-        median_nb_chr_per_page=actual_pdf.median_nb_chr_per_page,
-        median_nb_images_per_page=actual_pdf.median_nb_images_per_page,
-        recorded_date=actual_pdf.creation_date
-    )

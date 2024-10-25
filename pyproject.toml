@@ -12,6 +12,8 @@ sqlalchemy = "^2.0.0"
 pillow = "^10.0.0"
 pypdf="^5.0.0"
 rawpy= "^0.22.0"
+bdrc-db-lib="*"
+
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,11 +1,12 @@
-import os
-from datetime import datetime, timezone, timedelta
-from pathlib import Path
+from datetime import timezone, timedelta
 
 import pytest
 
-from image_info.ImageInfoFactory import image_info_factory
-from image_info.PdfImage import PdfImage
+from pathlib import Path
+import os
+from datetime import datetime
+
+from image_info import *
 
 test_source_dir: Path = Path(os.getcwd(), 'sources/')
 

@@ -2,16 +2,18 @@
 Test creation of data objects
 """
 import os
-from datetime import datetime
 from pathlib import Path
 
 import pytest
 
-from image_info.BaseImage import BaseImage
-from image_info.ImageInfoFactory import image_info_factory
-# from image_info.ImageMetadata import ImageMetaData, ImageMetadataException
-# from model.content.ImageFileInfos import ImageFileInfos
-from ORMModel import ImageFileInfos
+import image_info as ii
+
+from ORMModel import *
+
+# from image_info.ImageInfoFactory import image_info_factory
+# # from image_info.ImageMetadata import ImageMetaData, ImageMetadataException
+# # from model.content.ImageFileInfos import ImageFileInfos
+# from ORMModel import ImageFileInfos
 
 
 test_source_dir: Path = Path(os.getcwd(), 'sources/')
@@ -64,21 +66,5 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
 
 
 def test_data_model_image(source: Path, expected: ImageFileInfos):
-    actual = base_image_to_image_file_infos(image_info_factory(source))
+    actual = ii.base_image_to_image_file_infos(ii.image_info_factory(source))
     assert(expected == actual)
-
-
-
-# convert a BaseImage object into an ImageFileInfos object
-def base_image_to_image_file_infos(base_image: BaseImage) -> ImageFileInfos:
-    return ImageFileInfos(
-        image_type=base_image.image_type,
-        image_mode=base_image.image_mode,
-        width=base_image.width,
-        height=base_image.height,
-        tiff_compression=base_image.compression,
-        quality=base_image.quality,
-        bps_x=base_image.resolution[0],
-        bps_y=base_image.resolution[1],
-        recorded_date=base_image.recorded_date
-    )

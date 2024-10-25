@@ -6,6 +6,7 @@ from sqlalchemy.dialects.mssql import TINYINT
 from sqlalchemy.dialects.mysql import BIGINT, INTEGER, SMALLINT, VARCHAR
 from sqlalchemy.orm import Mapped, declarative_base, mapped_column, relationship
 
+__all__ = ['Files', 'Objects', 'Paths', 'Roots', 'PdfFileInfos', 'ImageFileInfos']
 ContentBase = declarative_base(metadata=MetaData(schema='content'))
 StorageBase = declarative_base(metadata=MetaData(schema='storage'))
 Base = declarative_base()
