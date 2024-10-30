@@ -12,7 +12,7 @@ sqlalchemy = "^2.0.0"
 pillow = "^10.0.0"
 pypdf="^5.0.0"
 rawpy= "^0.22.0"
-bdrc-db-lib="*"
+bdrc-db-lib=">=1.0.20"
 
 
 [build-system]
