@@ -32,6 +32,8 @@ class Files(Base):
                                comment='the creation date of the file. Often unknown or unreliable, can be set to the earlier mtime exposed by the FS')
     earliest_mdate = mapped_column(TIMESTAMP, comment='the earliest modification date for the file (optional)')
 
+    image_file_infos = relationship('ImageFileInfos', back_populates='files')
+
     def __eq__(self, other):
         return (
                 self.digest == other.digest
@@ -172,6 +174,8 @@ class ImageFileInfos(Base):
     recorded_date = mapped_column(TIMESTAMP, comment='the timestamp recorded in the exif metadata')
     create_time = mapped_column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP'))
     update_time = mapped_column(TIMESTAMP, server_default=text('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'))
+    files: Mapped[List[Files]] = relationship('Files', back_populates='image_file_infos')
+
 
     def __eq__(self, other):
         return (
@@ -197,8 +201,8 @@ Paths.objects: Mapped[Optional[Objects]] = relationship('Objects', back_populate
 Paths.files: Mapped[Optional[Files]] = relationship('Files', back_populates='paths')
 Files.paths: Mapped[List[Paths]] = relationship(Paths, uselist=True, back_populates='files')
 
-Files.image_file_infos: Mapped[List[ImageFileInfos]] = relationship('ImageFileInfos', back_populates='files')
-ImageFileInfos.files: Mapped[Optional[Files]] = relationship('Files', back_populates='image_file_infos')
+# Files.image_file_infos: Mapped[List[ImageFileInfos]] = relationship('ImageFileInfos', back_populates='files')
+# ImageFileInfos.files: Mapped[Optional[Files]] = relationship('Files', back_populates='image_file_infos')
 
 Files.pdf_file_infos: Mapped[List[PdfFileInfos]] = relationship('PdfFileInfos', back_populates='files')
 PdfFileInfos.files: Mapped[Optional[Files]] = relationship('Files', back_populates='pdf_file_infos')
