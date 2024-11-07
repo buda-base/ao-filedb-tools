@@ -12,7 +12,7 @@ from PIL import Image, UnidentifiedImageError
 from pypdf import PdfReader
 from rawpy._rawpy import LibRawFileUnsupportedError, RawPy
 
-from ORMModel import PdfFileInfos, ImageFileInfos
+from ORMModel import PdfFileInfo, ImageFileInfo
 
 __all__ = ['ImageMetadataException', 'PdfReaderType', 'BaseImage', 'PdfImage', 'PilImage', 'RawImage',
            'extract_image_metadata', 'image_info_factory', 'base_image_to_image_file_infos',
@@ -327,12 +327,12 @@ def image_info_factory(file_path: PathLike[str]) -> BaseImage:
     try:
         return PdfImage(PdfReader(file_path), Path(file_path))
     except Exception as e:
-        raise ValueError(f"File {file_path} not supported - error {e}")
+        raise ValueError(f"ImageFile {file_path} not supported - error {e}")
 
 
 # convert a BaseImage object into an ImageFileInfos object
-def base_image_to_image_file_infos(base_image: BaseImage) -> ImageFileInfos:
-    return ImageFileInfos(
+def base_image_to_image_file_infos(base_image: BaseImage) -> ImageFileInfo:
+    return ImageFileInfo(
         image_type=base_image.image_type,
         image_mode=base_image.image_mode,
         width=base_image.width,
@@ -345,8 +345,8 @@ def base_image_to_image_file_infos(base_image: BaseImage) -> ImageFileInfos:
     )
 
 
-def base_image_to_pdf_file_infos(actual_pdf: PdfImage) -> PdfFileInfos:
-    return PdfFileInfos(
+def base_image_to_pdf_file_infos(actual_pdf: PdfImage) -> PdfFileInfo:
+    return PdfFileInfo(
         number_of_pages=actual_pdf.num_pages,
         median_nb_chr_per_page=actual_pdf.median_nb_chr_per_page,
         median_nb_images_per_page=actual_pdf.median_nb_images_per_page,

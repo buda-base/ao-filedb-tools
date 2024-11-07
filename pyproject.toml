@@ -8,12 +8,16 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.9"
-sqlalchemy = "^2.0.0"
+sqlalchemy = "^1.4.0"
 pillow = "^10.0.0"
 pypdf="^5.0.0"
 rawpy= "^0.22.0"
-bdrc-db-lib=">=1.0.20"
+bdrc-db-lib=">=1.0.21"
 
+[tool.poetry.dev-dependencies]
+pytest = "^6.2.4"
+mypy = "^0.910"
+sqlacodegen = "^2.6.0"
 
 [build-system]
 requires = ["poetry-core"]

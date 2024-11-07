@@ -5,7 +5,7 @@ import hashlib
 from datetime import datetime
 from pathlib import Path
 
-from ORMModel import Files
+from ORMModel import ImageFile
 
 
 def f_validity(f: Path) -> ():
@@ -44,7 +44,7 @@ def f_created(f: Path) -> datetime:
     return datetime.fromtimestamp(f.stat().st_ctime)
 
 
-def f_to_files(f: Path) -> Files:
+def f_to_files(f: Path) -> ImageFile:
     """
     Generate a Files ORM object
     :param f: Path to file
@@ -52,7 +52,7 @@ def f_to_files(f: Path) -> Files:
     """
     f_digest = f_md5(f)
     f_pronom: () = f_pronoms(f)
-    return Files(
+    return ImageFile(
         digest=f_digest,
         size=f_size(f),
         persistent_id=f_digest,  # provisional

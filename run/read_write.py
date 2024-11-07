@@ -43,12 +43,9 @@ def main():
             for p in src.iterdir():
                 print(f"Reading {str(p)}")
                 _orm_image = read_one(p)
-                _orm_image.file_path = str(p)
                 _orm_file = fi.f_to_files(p)
-                if not _orm_image.files:
-                    _orm_image.files = [_orm_file]
-                else:
-                    _orm_image.files.append(_orm_file)
+                _orm_image.file = _orm_file
+
                 if not _orm_image:
                     print(f"Skipping dir entry {str(p)}")
                     continue

@@ -3,11 +3,9 @@ Test creation of data objects
 """
 import os
 from pathlib import Path
-
 import pytest
 
 import image_info as ii
-
 from ORMModel import *
 
 # from image_info.ImageInfoFactory import image_info_factory
@@ -20,7 +18,7 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
 
 
 @pytest.mark.parametrize("source, expected", [
-    (test_source_dir / 'I1FEMC010315_0011.tif', ImageFileInfos(
+    (test_source_dir / 'I1FEMC010315_0011.tif', ImageFileInfo(
         image_type='TIFF',
         image_mode='I;16',
         width=6200,
@@ -30,7 +28,7 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
         bps_x=600,
         bps_y=600,
         recorded_date=None)),
-    (test_source_dir / 'I2PD181500001.tif', ImageFileInfos(
+    (test_source_dir / 'I2PD181500001.tif', ImageFileInfo(
         image_type='TIFF',
         image_mode='1',
         width=2550,
@@ -40,7 +38,7 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
         bps_x=300,
         bps_y=300,
         recorded_date=None)),
-    (test_source_dir / 'I2PD181500004.jpg', ImageFileInfos(
+    (test_source_dir / 'I2PD181500004.jpg', ImageFileInfo(
         image_type='JPEG',
         image_mode='RGB',
         width=2187,
@@ -50,8 +48,8 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
         bps_x=300,
         bps_y=300,
         recorded_date=None)
-    ),
-    (test_source_dir / 'I1EAP71250007.ARW', ImageFileInfos(
+     ),
+    (test_source_dir / 'I1EAP71250007.ARW', ImageFileInfo(
         image_type='raw',
         image_mode='RGB',
         width=7968,
@@ -59,12 +57,10 @@ test_source_dir: Path = Path(os.getcwd(), 'sources/')
         tiff_compression='raw',
         quality='raw',
         bps_x=7968,
-        bps_y= 5320,
+        bps_y=5320,
         recorded_date=None)
      )
-    ])
-
-
-def test_data_model_image(source: Path, expected: ImageFileInfos):
+])
+def test_data_model_image(source: Path, expected: ImageFileInfo):
     actual = ii.base_image_to_image_file_infos(ii.image_info_factory(source))
-    assert(expected == actual)
+    assert (expected == actual)
