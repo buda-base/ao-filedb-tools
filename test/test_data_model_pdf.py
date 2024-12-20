@@ -7,7 +7,7 @@ import pytest
 import image_info as ii
 from ORMModel import PdfFileInfo
 
-test_source_dir: Path = Path(os.getcwd(), 'sources/')
+test_source_dir: Path = Path(os.path.dirname(os.path.abspath(__file__)), 'sources/')
 
 
 @pytest.mark.parametrize("source, expected", [

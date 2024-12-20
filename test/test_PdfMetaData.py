@@ -7,8 +7,7 @@ import os
 from datetime import datetime
 
 from image_info import *
-
-test_source_dir: Path = Path(os.getcwd(), 'sources/')
+test_source_dir: Path = Path(os.path.dirname(os.path.abspath(__file__)), 'sources/')
 
 
 @pytest.mark.parametrize("source, expected", [

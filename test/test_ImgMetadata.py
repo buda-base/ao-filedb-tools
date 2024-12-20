@@ -5,17 +5,8 @@ from pathlib import Path
 import pytest
 
 from  image_info import *
-# from image_info.ImageMetadata import ImageMetaData, ImageMetadataException
 
-
-# from image_info.BaseImage import BaseImage
-# from image_info.ImageInfoFactory import image_info_factory
-
-
-# from image_info.PdfImage import PdfImage
-# from image_info.PdfImage import PdfImage
-
-test_source_dir: Path = Path(os.getcwd(), 'sources/')
+test_source_dir: Path = Path(os.path.dirname(os.path.abspath(__file__)), 'sources/')
 
 
 @pytest.mark.parametrize("source, expected", [

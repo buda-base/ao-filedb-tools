@@ -13,8 +13,11 @@ from ORMModel import *
 # # from model.content.ImageFileInfos import ImageFileInfos
 # from ORMModel import ImageFileInfos
 
-
-test_source_dir: Path = Path(os.getcwd(), 'sources/')
+# Bumstinator - in vscode, you have to set the cwd to be the project, so it finds library files.
+# Means the source dir has to be the project root.  
+# get the directory of the current python file  
+test_source_dir: Path = Path(os.path.dirname(os.path.abspath(__file__)), 'sources/')
+# test_source_dir: Path = Path(os.getcwd(), 'sources/')
 
 
 @pytest.mark.parametrize("source, expected", [
