@@ -1,4 +1,4 @@
-#AO file tools
+# AO file tools
 
 Define a schema for storing image statistics, and some tools for creating and accessing them.
 
@@ -37,3 +37,9 @@ Collect these features
 |median_nb_chr_per_page | the average number of characters in a page |pypdf.PdfFileReader|                | .numPages       |
 |median_nb_images_per_page | the average number of images per page      |pypdf.PdfFileReader|                | .numPages       |
 |recorded_date | the timestamp recorded in the meetadata    | pypdf.PdfFileReader| .document_info | ["/CreationDate"] |
+
+## Development
+### Packaging
+Packaging uses the `python -m build` environment, now that `setuptools` is deprecated. This uses `pyproject.toml`
+integrated with the `poetry` dependency management program. In IDE's, you create a local `poetry` environment,
+not a `venv`. This means you have to have `poetry` already installed on your system.
