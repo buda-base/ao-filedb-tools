@@ -19,8 +19,7 @@ def f_pronoms(f: Path) -> ():
     :return: Tuple of pronom number and text
     """
     # Until we get fido wired in
-    return (None, None)
-
+    from fido import fido
 
 # Create an MD5 hash of the file
 def f_md5(f: Path) -> str:

@@ -8,6 +8,7 @@ from pathlib import Path
 from BdrcDbLib.DbOrm.DrsContextBase import DrsDbContextBase
 from sqlalchemy.dialects.mysql import insert
 
+import ORMModel
 import image_info as ii
 import FileInfo as fi
 
@@ -61,11 +62,26 @@ def main():
                 # commit happens on exit
 
 
-def process(p,_orm_image, content_db):
+def process(p: Path,_orm_image: ORMModel, content_db: DrsDbContextBase):
+    """
+    All steps in image processing
+    :param p: Path to image
+    :param _orm_image: Image ORM container
+    :param content_db: Db ORM context
+    :return:
+    """
     image_to_file(p, _orm_image)
+    image_to_fido(p, _orm_image)
     image_to_db(content_db, _orm_image)
 
-def image_to_file(p, orm_image):
+
+def image_to_file(p: Path, orm_image: ORMModel):
+    """
+
+    :param p:
+    :param orm_image:
+    :return:
+    """
     _orm_file = fi.f_to_files(p)
     orm_image.file = _orm_file
 
