@@ -1,7 +1,9 @@
 """
 Generate a Files ORM object
 """
+import csv
 import hashlib
+import sys
 from datetime import datetime
 from pathlib import Path
 
@@ -18,8 +20,44 @@ def f_pronoms(f: Path) -> ():
     :param f: Path to file
     :return: Tuple of pronom number and text
     """
-    # Until we get fido wired in
-    from fido import fido
+    from fido.fido import Fido
+    import io
+
+    image_fi = Fido(format_files=['formats-v109.xml',
+                                  'format_extensions.xml'])
+    #
+    # Redirect output
+    try:
+
+        # Create a StringIO object to capture the output
+        captured_output = io.StringIO()
+
+        # Redirect sys.stdout to the StringIO object
+        sys.stdout = captured_output
+        image_fi.identify_file(str(f))
+        # Read cpptured_output as a csv
+
+        # 'OK,930,fmt/353,"Tagged Image File Format","TIFF generic (little-endian)",19572,"/Users/***/dev/tmp/Archive1/34/W23834/images/W23834-3187/31870009.tif","image/tiff","signature"
+        _sample_output = """
+        %(info.time)s,   930
+        %(info.puid)s,   fmt/353//
+        %(info.formatname)s,'Tagged Image File Format
+        %(info.signaturename)s, 'TIFF generic (little-endian
+        %(info.filesize)s,\" 19752
+        %(info.filename)s"  ...../.../.../images/W23834-3187/31870009.tif
+        %(info.mimetype)s\"    "image/tiff"
+        %(info.matchtype)s\"         "signature"
+        """
+        csv_reader =  csv.reader(captured_output.getvalue().split('\n'))
+        for row in csv_reader:
+            pronom_number = row[0]
+            pronom_text = row[1]
+           # return pronom_number, pronom_text
+    except Exception as e:
+        sys.stderr.print(f"Error: {e}")
+    finally:
+        sys.stdout = sys.__stdout__
+
 
 # Create an MD5 hash of the file
 def f_md5(f: Path) -> str:

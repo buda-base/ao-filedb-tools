@@ -7,7 +7,7 @@ license = "License :: OSI Approved :: MIT License"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.13"
+python = "^3.11"
 sqlalchemy = "^1.4.0"
 pillow = "^10.0.0"
 pypdf="^5.0.0"
@@ -15,7 +15,7 @@ rawpy= "^0.24.0"
 bdrc-db-lib=">=1.0.21"
 opf-fido=">=1.4.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest = "^6.2.4"
 mypy = "^0.910"
 # Install in exterior. Just used to build files once
@@ -24,3 +24,10 @@ mypy = "^0.910"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+# From setup
+# sqlalchemy~=1.4.54
+# pytest~=6.2.5
+# pypdf~=5.1.0
+# rawpy~=0.24.0
+# pillow~=10.4.0
